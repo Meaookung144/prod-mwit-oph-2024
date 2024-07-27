@@ -13,8 +13,8 @@ const mainMenu = [
     name: 'ลงทะเบียนล่วงหน้า',
     fa: true,
     icon: faCircleUser,
-    href: '/register',
-    disabled: false,
+    href: '#',
+    disabled: true,
   },
   {
     name: 'Follow Us',
@@ -51,7 +51,7 @@ export default function LandingPage() {
   const isHome = path === "/" || path === "";
   if (!isHome) return;
   return (
-    <div className='w-full bg-yellow-500/50 absolute h-[calc(100vh-calc(100vh-100%))]'>
+    <div className='w-full bg-yellow-400/45 absolute h-[calc(100vh-calc(100vh-100%))]'>
       <div className='p-4 flex flex-col w-full h-[calc(100vh-calc(100vh-100%))]'>
         <div className='grow flex flex-col justify-center items-center mx-auto gap-6 lg:gap-8'>
           <div className='flex flex-col sm:flex-row justify-center items-center gap-6 lg:gap-8'>
@@ -90,14 +90,18 @@ export default function LandingPage() {
                 }}
             >
                 <div className='flex pb-2'>
-                    <div className='bg-white text-[#7775ff] px-3 pt-1 pb-0.5 rounded-full text-xs md:text-sm lg:text-base'>
+                    <div className='bg-ora text-white px-2 pt-1 pb-0.5 rounded-full text-xs md:text-sm lg:text-base'>
                         UPCOMING EVENT
                     </div>
                 </div>
-              <div className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-bmw'>
+              {/* <div className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-bmw'>
                 <p className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] inline bg-clip-text text-transparent bg-gradient-to-r from-[#88acff] to-[#ffec74]'>
                   MWIT Open House 2024
                 </p>
+              </div> */}
+              <div className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-bmw'>
+              MWIT Open House 2024
+              <p>Enchance Your Possibilities</p>
               </div>
               <div className='mt-1'>
               <FontAwesomeIcon icon={faCalendar} className='text-[#575fd6] h-[1em] pb-[0.1rem] mr-2' />
@@ -173,7 +177,7 @@ export default function LandingPage() {
             </motion.a> */}
           </div>
         </div>
-        {/* <motion.a
+        <motion.a
               className='w-full max-w-4xl md:pb-4 mx-auto flex-none grid grid-flow-col gap-2 lg:gap-4'
               initial={{ opacity: 0, scale: 0.7, y: 10, rotate: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
@@ -183,7 +187,6 @@ export default function LandingPage() {
                 bounce: 0.4,
                 type: 'spring',
               }}
-              href='/tour'
             ><div className='hover:bg-ymw/70 text-bmw hover:text-black cursor-pointer bg-white/30 text-bmw/50 grayscale-0 transition-colors duration-200 rounded-xl p-3 grid grid-flow-row content-center gap-2 md:gap-3 justify-items-center'>
               <span className='text-black font-CS font-bold text-xs sm:text-base md:text-lg lg:text-xl text-center'>
                 จำนวนผู้ลงทะเบียนเข้าร่วมงาน ( ยังไม่เปิดให้ลงทะเบียน )
@@ -208,7 +211,8 @@ export default function LandingPage() {
               </div>
               
       </div>
-      </motion.a> */}
+      </motion.a>
+      <div className="p-2"></div>
         <div className='w-full max-w-4xl md:pb-4 mx-auto flex-none grid grid-flow-col gap-2 lg:gap-4'>
           {mainMenu.map((m, i) => (
             <Button

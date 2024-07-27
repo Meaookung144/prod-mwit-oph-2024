@@ -1,0 +1,224 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema", "postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
+  extensions = [uuid_ossp(map: "uuid-ossp")]
+  schemas    = ["next_auth"]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model accounts {
+  id                 String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         BigInt?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+  userId             String? @db.Uuid
+  users              users?  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([provider, providerAccountId], map: "provider_unique")
+  @@schema("next_auth")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model activity_detail {
+  id                  BigInt                @id @unique(map: "activity_detail_id") @default(autoincrement())
+  name                String                @unique
+  detail              String
+  img                 String?
+  created_at          DateTime              @default(now()) @db.Timestamptz(6)
+  allowRegister       Boolean               @default(false)
+  activity_enrollment activity_enrollment[]
+
+  @@schema("next_auth")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model activity_enrollment {
+  id                 BigInt          @id @unique(map: "activity_enrollment_id") @default(autoincrement())
+  activity_detail_id BigInt
+  owner_id           String          @default(uuid()) @db.Uuid
+  created_at         DateTime        @default(now())
+  enrolled_for       String
+  activity_detail    activity_detail @relation(fields: [activity_detail_id], references: [id], onDelete: Cascade)
+  owner              users           @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+
+  @@schema("next_auth")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model group_detail {
+  id          BigInt        @id @unique(map: "group_detail_id") @default(autoincrement())
+  travel      String?
+  expect      String?
+  how_to_know String?
+  checkin     Boolean       @default(false)
+  created_at  DateTime      @default(now())
+  join_day    String
+  owner_id    String        @db.Uuid
+  owner       users         @relation(fields: [owner_id], references: [id], onDelete: Cascade)
+  group_guest group_guest[]
+
+  @@schema("next_auth")
+}
+
+model group_guest {
+  prefix     prefix
+  name       String       @id @unique(map: "group_guest_name")
+  status     String
+  telphone   String
+  age        Int
+  school     String?
+  created_at DateTime     @default(now())
+  group_id   BigInt
+  group      group_detail @relation(fields: [group_id], references: [id], onDelete: Cascade)
+
+  @@schema("next_auth")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model sessions {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  expires      DateTime @db.Timestamptz(6)
+  sessionToken String   @unique(map: "sessiontoken_unique")
+  userId       String?  @db.Uuid
+  users        users?   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("next_auth")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model users {
+  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  prefix              prefix?
+  name                String?
+  email               String?               @unique(map: "email_unique")
+  emailVerified       DateTime?             @db.Timestamptz(6)
+  image               String?
+  age                 Int?
+  telphone           String?                @unique(map: "telphone_unique")
+  province            province?
+  visiting_status     String?
+  created_at          DateTime              @default(now())
+  accounts            accounts[]
+  activity_enrollment activity_enrollment[]
+  group_detail        group_detail[]
+  sessions            sessions[]
+
+  @@schema("next_auth")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model verification_tokens {
+  identifier String?
+  token      String   @id
+  expires    DateTime @db.Timestamptz(6)
+
+  @@unique([token, identifier], map: "token_identifier_unique")
+  @@schema("next_auth")
+}
+
+enum prefix {
+  Mister @map("นาย")
+  Missus @map("นาง")
+  Miss   @map("นางสาว")
+
+  @@schema("next_auth")
+}
+
+/// This enum is commented in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+enum province {
+  Bangkok           @map("กรุงเทพมหานคร")
+  SamutPrakan       @map("สมุทรปราการ")
+  Nonthaburi        @map("นนทบุรี")
+  PathumThani       @map("ปทุมธานี")
+  SamutSakhon       @map("สมุทรสาคร")
+  Ayutthaya         @map("พระนครศรีอยุธยา")
+  AngThong          @map("อ่างทอง")
+  LopBuri           @map("ลพบุรี")
+  SingBuri          @map("สิงห์บุรี")
+  ChaiNat           @map("ชัยนาท")
+  Saraburi          @map("สระบุรี")
+  ChonBuri          @map("ชลบุรี")
+  Rayong            @map("ระยอง")
+  Chanthaburi       @map("จันทบุรี")
+  Trat              @map("ตราด")
+  Chachoengsao      @map("ฉะเชิงเทรา")
+  PrachinBuri       @map("ปราจีนบุรี")
+  NakhonNayok       @map("นครนายก")
+  SaKaeo            @map("สระแก้ว")
+  NakhonRatchasima  @map("นครราชสีมา")
+  BuriRam           @map("บุรีรัมย์")
+  Surin             @map("สุรินทร์")
+  SiSaKet           @map("ศรีสะเกษ")
+  UbonRatchathani   @map("อุบลราชธานี")
+  Yasothon          @map("ยโสธร")
+  Chaiyaphum        @map("ชัยภูมิ")
+  AmnatCharoen      @map("อำนาจเจริญ")
+  BuengKan          @map("บึงกาฬ")
+  NongBuaLamphu     @map("หนองบัวลำภู")
+  KhonKaen          @map("ขอนแก่น")
+  UdonThani         @map("อุดรธานี")
+  Loei              @map("เลย")
+  NongKhai          @map("หนองคาย")
+  MahaSarakham      @map("มหาสารคาม")
+  RoiEt             @map("ร้อยเอ็ด")
+  Kalasin           @map("กาฬสินธุ์")
+  SakonNakhon       @map("สกลนคร")
+  NakhonPhanom      @map("นครพนม")
+  Mukdahan          @map("มุกดาหาร")
+  ChiangMai         @map("เชียงใหม่")
+  Lamphun           @map("ลำพูน")
+  Lampang           @map("ลำปาง")
+  Uttaradit         @map("อุตรดิตถ์")
+  Phrae             @map("แพร่")
+  Nan               @map("น่าน")
+  Phayao            @map("พะเยา")
+  ChiangRai         @map("เชียงราย")
+  MaeHongSon        @map("แม่ฮ่องสอน")
+  NakhonSawan       @map("นครสวรรค์")
+  UthaiThani        @map("อุทัยธานี")
+  KamphaengPhet     @map("กำแพงเพชร")
+  Tak               @map("ตาก")
+  Sukhothai         @map("สุโขทัย")
+  Phitsanulok       @map("พิษณุโลก")
+  Phichit           @map("พิจิตร")
+  Phetchabun        @map("เพชรบูรณ์")
+  Ratchaburi        @map("ราชบุรี")
+  Kanchanaburi      @map("กาญจนบุรี")
+  SuphanBuri        @map("สุพรรณบุรี")
+  NakhonPathom      @map("นครปฐม")
+  SamutSongkhram    @map("สมุทรสงคราม")
+  Phetchaburi       @map("เพชรบุรี")
+  PrachuapKhiriKhan @map("ประจวบคีรีขันธ์")
+  Chumphon          @map("ชุมพร")
+  Ranong            @map("ระนอง")
+  SuratThani        @map("สุราษฎร์ธานี")
+  PhangNga          @map("พังงา")
+  Phuket            @map("ภูเก็ต")
+  Krabi             @map("กระบี่")
+  NakhonSiThammarat @map("นครศรีธรรมราช")
+  Trang             @map("ตรัง")
+  Phatthalung       @map("พัทลุง")
+  Satun             @map("สตูล")
+  Songkhla          @map("สงขลา")
+  Pattani           @map("ปัตตานี")
+  Yala              @map("ยะลา")
+  Narathiwat        @map("นราธิวาส")
+
+  @@schema("next_auth")
+}

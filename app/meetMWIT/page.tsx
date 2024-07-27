@@ -21,7 +21,7 @@ const motionProp = {
     transition: { duration: 0.8 },
 }
 
-export default function meetMWIT() {
+export default function MeetMWIT() {
     const router = useRouter()
     const { data: session, status } = useSession()
 
@@ -42,8 +42,9 @@ export default function meetMWIT() {
                     <a className='font-CS font-bold text-bmw text-3xl md:text-4xl lg:text-5xl'>
                         &lsquo;น้อง&lsquo; ถาม &lsquo;พี่&lsquo; ตอบ
                     </a>
+                    <p className='text-purple-700 font-bold font-CS text-2xl'>Comming Soon...</p>
                 </div>
-                <div className='flex flex-col relative overflow-y-hidden max-w-6xl mx-auto px-6 justify-center gap-4 pt-4 pb-10'>
+                {/* <div className='flex flex-col relative overflow-y-hidden max-w-6xl mx-auto px-6 justify-center gap-4 pt-4 pb-10'>
                     <a className='w-full relative group shadow-lg flex flex-col md:flex-row rounded-xl overflow-hidden min-h-[15rem] justify-end'>
                         <div
                             style={{ backgroundImage: `url('/img/catimg/10.jpg')` }}
@@ -62,12 +63,12 @@ export default function meetMWIT() {
                     </a>
                 </div>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 mt-4 ml-5 mr-5 lg:mx-64'>
-                    {/* <div className='flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow rounded-t-2xl hover:bg-sky-100'>
+                    <div className='flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow rounded-t-2xl hover:bg-sky-100'>
             <img src='/img/catimg/1.jpg' className='rounded' /> 
           </div>
           <div className='flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow rounded-t-2xl hover:bg-pink-100'>
             <img src='/img/catimg/2.jpg' className='rounded' />
-          </div> */}
+          </div>
                     <div className='mt-5'></div>
                 </div>
                 <center>
@@ -106,7 +107,7 @@ export default function meetMWIT() {
                             </button>
                         </div>
                     )}
-                </center>
+                </center> */}
 
                 <div className='pt-5'></div>
             </main>

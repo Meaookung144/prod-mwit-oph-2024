@@ -49,7 +49,7 @@ export default function Button({ m, toHome, ...props }: ButtonProps) {
         (m.disabled
           ? 'bg-white/30 text-bmw/50'
           : 'bg-white/50' +
-            ' hover:bg-ymw/70 text-bmw hover:text-white cursor-pointer') +
+            ' hover:bg-ymw/70 text-bmw hover:text-black cursor-pointer') +
         ' grayscale-0 transition-colors duration-200 rounded-xl p-3 grid grid-flow-row content-center gap-2 md:gap-3 justify-items-center hover:drop-shadow-lg'
       }
       variants={menuVar}

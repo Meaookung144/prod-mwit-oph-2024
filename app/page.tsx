@@ -124,11 +124,11 @@ export default function Home() {
                 56 ชุมนุม!
               </span>
               <div className='flex gap-2 mt-2'>
-                <Link legacyBehavior href={'/club'}>
+                {/* <Link legacyBehavior href={'/club'}>
                   <a className='bg-white/20 hover:bg-white/60 hover:text-purple-700 transition-all duration-300 backdrop-blur-sm text-purple-200/80 rounded-full px-4 py-2 font-IBMPlex font-semibold'>
                     Online Exhibiton
                   </a>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

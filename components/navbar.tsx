@@ -186,12 +186,12 @@ const navMenu: {
         icon: faHouse,
         auth: undefined,
     },
-    // {
-    //     name: 'Schedule',
-    //     href: '/schedule',
-    //     icon: faCalendarDay,
-    //     auth: undefined,
-    // },
+    {
+        name: 'Schedule',
+        href: '/schedule',
+        icon: faCalendarDay,
+        auth: undefined,
+    },
     {
         name: 'Exhibitions',
         href: '',
@@ -230,12 +230,12 @@ const navMenu: {
             },
         ],
     },
-    {
-        name: 'Register',
-        href: '/register',
-        icon: faPenToSquare,
-        auth: false,
-    },
+    // {
+    //     name: 'Register',
+    //     href: '/register',
+    //     icon: faPenToSquare,
+    //     auth: false,
+    // },
     {
         name: 'Account',
         href: '',
