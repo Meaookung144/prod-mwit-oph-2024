@@ -1,0 +1,31 @@
+{
+    "theme_color": "#fcf4a0",
+    "background_color": "#fcf4a0",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "MWIT Open House 2024",
+    "short_name": "MWIT OPH 2024",
+    "description": "MWIT Open House 2024 | 23 - 24 \u0e2a\u0e34\u0e07\u0e2b\u0e32\u0e04\u0e21 2567",
+    "icons": [{
+            "src": "https://openhouse.mwit.ac.th/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://openhouse.mwit.ac.th/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "https://openhouse.mwit.ac.th/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "https://openhouse.mwit.ac.th/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
