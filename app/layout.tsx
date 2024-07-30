@@ -2,10 +2,8 @@ import { Metadata } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import LandingPage from '../components/landing'
-import Navbar from '../components/navbar'
 import { B612_Mono, IBM_Plex_Sans_Thai, IBM_Plex_Sans_Thai_Looped } from 'next/font/google'
 import localFont from 'next/font/local'
-import Footer from '../components/footer'
 import { useId } from 'react'
 import Provider from '../components/utils/provider'
 import TempClientUseEffect from '../components/utils/tmpclienthook'
@@ -84,9 +82,7 @@ export default function RootLayout({
                   <LandingPage />
                   <TempClientUseEffect bodyId={bodyId} />
                   <div className='flex flex-col w-full min-h-screen' id={bodyId}>
-                    <Navbar />
                     {children}
-                    <Footer />
                   </div>
               </body>
             </Provider>
