@@ -103,7 +103,7 @@ export default function LandingPage() {
                                   MWIT Open House 2024
                                 </p>
                                 <p className='drop-shadow-lg bg-clip-text text-transparent bg-gradient-to-l from-[#83a4fd] to-[#a670e9]'>
-                                  Enhance Your Possibilities
+                                  Enhance Your Possibilities ห
                                 </p>
                             </div>
                             <div className='mt-1 text-lg'>
@@ -131,6 +131,6 @@ export default function LandingPage() {
         </div>
         </div>
         </div>
-        
+
     )
 }
